@@ -1,31 +1,22 @@
 .App {
-  text-align: center;
+  background: #ed4264;
+  background: -webkit-linear-gradient(to bottom, #ed4264, #ffedbc);
+  background: linear-gradient(to bottom, #ed4264, #ffedbc);
+  height: 100vh;
 }
 
-.App-header {
-  background: rgb(216, 181, 255);
-  background: linear-gradient(0deg, rgba(216, 181, 255, 1) 0%, rgba(30, 174, 152, 1) 100%);
-  min-height: 100vh;
+.banner {
+  height: 300px;
+  padding-top: 25vh;
+  text-align: center;
+  z-index: -1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.banner {
-  font-weight: bold;
-  text-transform: uppercase;
+.banner > h1 {
   font-size: 20vh;
-  letter-spacing: 10px;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  line-height: 0vh;
 }
