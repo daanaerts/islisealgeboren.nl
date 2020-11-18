@@ -5,6 +5,13 @@
   height: 100vh;
 }
 
+.hint {
+  position:absolute;
+  top:0;
+  left:0;
+  line-height: 0;
+}
+
 .banner {
   height: 300px;
   padding-top: 25vh;
