@@ -17,6 +17,8 @@
 .banner {
   font-weight: bold;
   text-transform: uppercase;
+  font-size: 20vh;
+  letter-spacing: 10px;
 }
 
 @keyframes App-logo-spin {
