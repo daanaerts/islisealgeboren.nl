@@ -56,7 +56,29 @@ const Canvas = ({ width, height }: CanvasProps) => {
     }
   };
 
-  const startPaint = useCallback((event: MouseEvent) => {
+  const getCoordinatesTouch = (event: TouchEvent): Coordinate | undefined => {
+    if (!canvasRef.current) {
+      return;
+    }
+
+    const canvas: HTMLCanvasElement = canvasRef.current;
+
+    const newCoordinates = {
+      x: event.touches[0].clientX - canvas.offsetLeft,
+      y: event.touches[0].clientY - canvas.offsetTop,
+    };
+    return newCoordinates;
+  };
+
+  const startPaintTouch = useCallback((event: TouchEvent) => {
+    const coordinates = getCoordinatesTouch(event);
+    if (coordinates) {
+      setIsPainting(true);
+      setMousePosition(coordinates);
+    }
+  }, []);
+
+  const startPaintMouse = useCallback((event: MouseEvent) => {
     const coordinates = getCoordinates(event);
     if (coordinates) {
       setIsPainting(true);
@@ -83,11 +105,13 @@ const Canvas = ({ width, height }: CanvasProps) => {
       return;
     }
     const canvas: HTMLCanvasElement = canvasRef.current;
-    canvas.addEventListener("mousedown", startPaint);
+    canvas.addEventListener("mousedown", startPaintMouse);
+    canvas.addEventListener("touchstart", startPaintTouch);
     return () => {
-      canvas.removeEventListener("mousedown", startPaint);
+      canvas.removeEventListener("mousedown", startPaintMouse);
+      canvas.removeEventListener("touchstart", startPaintTouch);
     };
-  }, [startPaint]);
+  }, [startPaintMouse, startPaintTouch]);
 
   useEffect(() => {
     if (!canvasRef.current) {
