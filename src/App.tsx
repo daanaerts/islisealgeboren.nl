@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <p className="hint">hint: scratch open the grey box</p>
+      <p className="hint">hint: krassen</p>
       {show && (
         <div className="banner">
           <h1>NEE</h1>
