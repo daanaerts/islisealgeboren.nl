@@ -119,7 +119,7 @@ const Canvas = ({ width, height }: CanvasProps) => {
 };
 
 Canvas.defaultProps = {
-  width: "500px",
+  width: window.innerWidth * 0.8,
   height: "400px",
 };
 
