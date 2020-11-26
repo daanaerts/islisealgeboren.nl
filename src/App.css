@@ -1,7 +1,5 @@
 .App {
-  background: #ed4264;
-  background: -webkit-linear-gradient(to bottom, #ed4264, #ffedbc);
-  background: linear-gradient(to bottom, #ed4264, #ffedbc);
+  background: #FBD1A2;
   height: 100vh;
 }
 
@@ -24,6 +22,6 @@
 }
 
 .banner > h1 {
-  font-size: 20vh;
+  font-size: 10vw;
   line-height: 0vh;
 }
