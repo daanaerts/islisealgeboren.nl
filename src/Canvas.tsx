@@ -4,6 +4,7 @@ import "./canvas.css";
 interface CanvasProps {
   width: number;
   height: number;
+  onExplode: () => void;
 }
 
 type Coordinate = {
@@ -11,40 +12,13 @@ type Coordinate = {
   y: number;
 };
 
-const Canvas = ({ width, height }: CanvasProps) => {
+const Canvas = ({ width, height, onExplode }: CanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isPainting, setIsPainting] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(
     undefined
   );
-
-  const paint = useCallback(
-    (event: MouseEvent) => {
-      if (isPainting) {
-        const newMousePosition = getCoordinates(event);
-        if (mousePosition && newMousePosition) {
-          drawLine(mousePosition, newMousePosition);
-          setMousePosition(newMousePosition);
-        }
-      }
-    },
-    [isPainting, mousePosition]
-  );
-
-  const paintTouch = useCallback(
-    (event: TouchEvent) => {
-      if (isPainting) {
-        const newMousePosition = getCoordinatesTouch(event.touches[0]);
-        if (mousePosition && newMousePosition) {
-          drawLine(mousePosition, newMousePosition);
-          setMousePosition(newMousePosition);
-        }
-      }
-    },
-    [isPainting, mousePosition]
-  );
-
-  // ...other stuff here
 
   const drawLine = (
     originalMousePosition: Coordinate,
@@ -53,6 +27,8 @@ const Canvas = ({ width, height }: CanvasProps) => {
     if (!canvasRef.current) {
       return;
     }
+
+    // setProgress(progress + 1);
 
     const canvas: HTMLCanvasElement = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -69,6 +45,42 @@ const Canvas = ({ width, height }: CanvasProps) => {
       context.stroke();
     }
   };
+
+  const paint = useCallback(
+    (event: MouseEvent) => {
+      // if (progress > 280) {
+      //   onExplode();
+      //   return;
+      // }
+      if (isPainting) {
+        const newMousePosition = getCoordinates(event);
+        if (mousePosition && newMousePosition) {
+          drawLine(mousePosition, newMousePosition);
+          setMousePosition(newMousePosition);
+        }
+      }
+    },
+    [isPainting, mousePosition, drawLine, onExplode]
+  );
+
+  const paintTouch = useCallback(
+    (event: TouchEvent) => {
+      if (isPainting) {
+        // if (progress > 280) {
+        //   onExplode();
+        //   return;
+        // }
+        const newMousePosition = getCoordinatesTouch(event.touches[0]);
+        if (mousePosition && newMousePosition) {
+          drawLine(mousePosition, newMousePosition);
+          setMousePosition(newMousePosition);
+        }
+      }
+    },
+    [isPainting, mousePosition, drawLine, onExplode]
+  );
+
+  // ...other stuff here
 
   const getCoordinatesTouch = (touch: Touch): Coordinate | undefined => {
     if (!canvasRef.current) {
@@ -198,7 +210,7 @@ const Canvas = ({ width, height }: CanvasProps) => {
     if (!context) {
       return;
     }
-    context.fillStyle = "grey";
+    context.fillStyle = "#6A5D7B";
     context.fillRect(0, 0, canvas.width, canvas.height);
   }, []);
 
@@ -208,8 +220,8 @@ const Canvas = ({ width, height }: CanvasProps) => {
 };
 
 Canvas.defaultProps = {
-  width: window.innerWidth * 0.8,
-  height: "400px",
+  width: window.innerWidth,
+  height: window.innerHeight,
 };
 
 export default Canvas;
