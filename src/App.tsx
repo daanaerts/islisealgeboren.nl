@@ -27,7 +27,7 @@ function Level1() {
           style={{ transform: `translateY(${translate})` }}
         >
           <h1>LISE</h1>
-          <h4>is nog niet geboren.</h4>
+          <h4>is geboren op 1 december om 21:26c</h4>
         </div>
       )}
       <Canvas onExplode={() => {}} />
